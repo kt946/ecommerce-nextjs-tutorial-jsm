@@ -5,7 +5,7 @@ import { Product, FooterBanner, HeroBanner } from '../components';
 
 export default function Home({ products, bannerData }) {
   return (
-    <>
+    <div>
       <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
 
       <div className='products-heading'>
@@ -15,17 +15,17 @@ export default function Home({ products, bannerData }) {
 
       <div className='products-container'>
         {products?.map((product) => (
-          <Product 
-            key={product._id} 
+          <Product
+            key={product._id}
             product={product}
           />
         ))}
       </div>
 
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
-    </>
+    </div>
   );
-};
+}
 
 export const getServerSideProps = async () => {
   const query = '*[_type == "product"]';
@@ -35,6 +35,6 @@ export const getServerSideProps = async () => {
   const bannerData = await client.fetch(bannerQuery);
 
   return {
-    props: { products, bannerData }
-  }
+    props: { products, bannerData },
+  };
 };
